@@ -133,6 +133,10 @@ local_server.py
 test_*.py
 *.log
 
+# Large dataset files
+*.csv
+online-payments.csv
+
 # OS specific files
 .DS_Store
 .DS_Store?
