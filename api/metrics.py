@@ -3,7 +3,6 @@ import os
 
 
 def handler(request):
-    # Handle CORS
     headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, OPTIONS',
@@ -19,11 +18,9 @@ def handler(request):
         }
     
     try:
-        # Get the directory of this file
         api_dir = os.path.dirname(__file__)
         precomp_path = os.path.join(api_dir, 'metrics_precomputed.json')
         
-        # Try to load precomputed metrics
         if os.path.exists(precomp_path):
             with open(precomp_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
