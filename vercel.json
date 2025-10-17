@@ -1,16 +1,16 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/predict_simple.py", "use": "@vercel/python" },
-    { "src": "api/metrics_simple.py", "use": "@vercel/python" },
+    { "src": "api/predict.py", "use": "@vercel/python" },
+    { "src": "api/metrics.py", "use": "@vercel/python" },
     { "src": "**/*.html", "use": "@vercel/static" },
     { "src": "assets/**", "use": "@vercel/static" },
     { "src": "**/*.json", "use": "@vercel/static" },
     { "src": "**/*.joblib", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/api/predict", "dest": "api/predict_simple.py" },
-    { "src": "/api/metrics", "dest": "api/metrics_simple.py" },
+    { "src": "/api/predict", "dest": "api/predict.py" },
+    { "src": "/api/metrics", "dest": "api/metrics.py" },
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
     { "src": "/metrics_precomputed.json", "dest": "/metrics_precomputed.json" },
     { "src": "/(index|transaction).html", "dest": "/$1.html" },
