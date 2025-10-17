@@ -1,26 +1,48 @@
 import json
 import os
 
-def handler(request, response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
+
+def handler(request):
+    # Handle CORS
+    headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+    }
     
     if request.method == 'OPTIONS':
-        response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
-        response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-        return ''
+        return {
+            'statusCode': 200,
+            'headers': headers,
+            'body': ''
+        }
     
     try:
+        # Get the directory of this file
         api_dir = os.path.dirname(__file__)
         precomp_path = os.path.join(api_dir, 'metrics_precomputed.json')
         
+        # Try to load precomputed metrics
         if os.path.exists(precomp_path):
             with open(precomp_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-            return data
+            
+            return {
+                'statusCode': 200,
+                'headers': headers,
+                'body': json.dumps(data)
+            }
         else:
-            response.status_code = 500
-            return {'error': 'Metrics file not found'}
+            return {
+                'statusCode': 500,
+                'headers': headers,
+                'body': json.dumps({'error': 'Metrics file not found'})
+            }
             
     except Exception as e:
-        response.status_code = 500
-        return {'error': str(e)}
+        return {
+            'statusCode': 500,
+            'headers': headers,
+            'body': json.dumps({'error': str(e)})
+        }
