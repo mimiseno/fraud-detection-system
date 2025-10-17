@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fraudulent Transaction Detector</title>
+    <meta name=\"description\" content=\"Real-time fraud detection using Random Forest ML algorithm with 99.98% accuracy. Test transactions and prevent financial fraud.\">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="data:," />
+  </head>
+  <body class="min-h-screen bg-slate-50 text-slate-800">
+    <!-- Nav -->
+    <header class="border-b border-slate-200 bg-white shadow-sm">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <div class="flex items-center gap-4">
+          <div>
+            <h1 class="text-lg font-bold text-slate-800">Fraudulent Transaction Detector</h1>
+            <p class="text-xs text-slate-500">Test fraudulent transactions in real-time.</p>
+          </div>
+        </div>
+        <nav class="flex items-center gap-6">
+          <a class="text-sm font-medium text-slate-600 hover:text-yellow-600 transition-colors" href="/">Dashboard</a>
+          <a class="inline-flex items-center gap-2 rounded-lg bg-yellow-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-yellow-600 transition-colors" href="/transaction.html">
+            Test Transaction
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero / Title -->
+    <div id="notice" class="mx-auto max-w-6xl px-6 pt-4"></div>
+    <section class="mx-auto max-w-6xl px-6 pt-8 pb-8">
+      <div class="text-center mb-10">
+        <h1 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+          Smart Fraud Detection
+        </h1>
+        <p class="text-base text-slate-600 max-w-2xl mx-auto">
+          Our Random Forest model analyzes transactions in real-time, delivering 99.98% accuracy 
+          while maintaining the perfect balance between security and user experience.
+        </p>
+      </div>
+
+      <!-- Main Content -->
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <!-- Model Performance Card -->
+        <div class="lg:col-span-2">
+          <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+            <div class="mb-6 flex items-start justify-between">
+              <div>
+                <div class="flex items-center gap-3 mb-3">
+                  <h2 class="text-xl font-bold text-slate-800">Random Forest Model</h2>
+                  <span class="inline-flex items-center gap-1 rounded-md bg-yellow-500 px-2 py-1 text-xs font-bold text-white">
+                    <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    PRIMARY
+                  </span>
+                </div>
+                <p class="text-slate-600">
+                   Random Forest model was chosen for this application due to its superior performance in fraud detection tasks compared to other algorithms.
+                </p>
+              </div>
+            </div>
+            
+            <!-- Performance Metrics -->
+            <div class="mb-6">
+              <h3 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide">Performance Metrics</h3>
+              <div id="kpis" class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <!-- Filled by JS -->
+              </div>
+            </div>
+            
+            <!-- Technical Details -->
+            <div class="border-t border-slate-100 pt-6">
+              <h3 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide">Implementation Notes</h3>
+              <div class="space-y-2 text-sm text-slate-600">
+                <div class="flex items-center gap-2">
+                  <div class="h-1.5 w-1.5 rounded-full bg-yellow-500"></div>
+                  <span>Live predictions powered by <code class="bg-slate-100 px-2 py-0.5 rounded text-xs">model_rf_pipeline.joblib</code></span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="h-1.5 w-1.5 rounded-full bg-yellow-500"></div>
+                  <span>Metrics updated from latest training data</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="h-1.5 w-1.5 rounded-full bg-yellow-500"></div>
+                  <span>Benchmarked against GBM and Decision Tree models</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart Visualization -->
+        <div class="lg:col-span-1">
+          <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm h-full">
+            <div class="mb-6 text-center">
+              <h3 class="text-lg font-bold text-slate-800 mb-2">Model Comparison</h3>
+              <p class="text-sm text-slate-500">Performance across all algorithms</p>
+            </div>
+            <div id="chart" class="w-full overflow-x-auto flex justify-center">
+              <!-- SVG chart injected by JS -->
+            </div>
+            <p class="mt-4 text-center text-xs text-slate-400">Accuracy • Precision • Recall • F1-Score</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Metrics Table -->
+      <div class="mt-8 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+        <div class="border-b border-slate-200 bg-slate-50 p-4">
+          <h3 class="text-lg font-bold text-slate-800">Detailed Performance Analysis</h3>
+          <p class="text-sm text-slate-500 mt-1">Comprehensive metrics across all model architectures</p>
+        </div>
+        <div class="overflow-x-auto p-4">
+          <table id="metrics-table" class="w-full text-left">
+            <thead>
+              <tr class="border-b border-slate-100">
+                <th class="py-3 text-sm font-semibold text-slate-700 uppercase tracking-wide">Model</th>
+                <th class="py-3 text-sm font-semibold text-slate-700 uppercase tracking-wide">Accuracy</th>
+                <th class="py-3 text-sm font-semibold text-slate-700 uppercase tracking-wide">Precision</th>
+                <th class="py-3 text-sm font-semibold text-slate-700 uppercase tracking-wide">Recall</th>
+                <th class="py-3 text-sm font-semibold text-slate-700 uppercase tracking-wide">F1 Score</th>
+                <th class="py-3 text-sm font-semibold text-slate-700 uppercase tracking-wide">ROC AUC</th>
+              </tr>
+            </thead>
+            <tbody id="metrics-rows" class="divide-y divide-slate-100">
+            </tbody>
+          </table>
+          <div class="mt-4 p-3 bg-slate-50 rounded-lg">
+            <p class="text-xs text-slate-600">
+              <span class="font-medium text-slate-700">Note:</span> Precision, Recall, and F1-Score metrics specifically target fraud detection (positive class). 
+              These metrics reflect our model's ability to catch fraudulent transactions while minimizing false positives.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Business Impact Analysis -->
+      <div class="mt-8 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+        <div class="border-b border-slate-200 bg-slate-50 p-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-800">Business Impact Analysis</h3>
+            <p class="text-sm text-slate-500">Real-world financial impact based on 10,000 transactions with 1% fraud rate</p>
+          </div>
+        </div>
+        <div class="p-4">
+          <div id="business-impact-grid" class="grid gap-4 md:grid-cols-3">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <a class="inline-flex items-center gap-2 rounded-lg bg-yellow-500 px-6 py-3 text-base font-semibold text-white shadow hover:bg-yellow-600 transition-colors" href="/transaction.html">
+          Test Your Transaction
+        </a>
+        <p class="text-sm text-slate-500 mt-3">Micah T. Sereno -  CS401</p>
+      </div>
+    </section>
+
+    <script src="/assets/app.js"></script>
+  </body>
+  </html>

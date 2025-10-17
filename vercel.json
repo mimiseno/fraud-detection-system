@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/predict.py", "use": "@vercel/python" },
+    { "src": "api/metrics.py", "use": "@vercel/python" },
+    { "src": "**/*.html", "use": "@vercel/static" },
+    { "src": "assets/**", "use": "@vercel/static" },
+    { "src": "metrics.json", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/predict", "dest": "api/predict.py" },
+    { "src": "/api/metrics", "dest": "api/metrics.py" },
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/(index|transaction).html", "dest": "/$1.html" },
+    { "src": "/", "dest": "/index.html" }
+  ]
+}

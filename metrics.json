@@ -1,0 +1,17 @@
+{
+  "lastUpdated": "2025-10-18",
+  "models": [
+    {
+      "name": "GBM",
+      "metrics": { "accuracy": 0.985, "precision": 0.970, "recall": 0.965, "f1": 0.967, "roc_auc": 0.992 }
+    },
+    {
+      "name": "Random Forest",
+      "metrics": { "accuracy": 0.980, "precision": 0.955, "recall": 0.950, "f1": 0.952, "roc_auc": 0.988 }
+    },
+    {
+      "name": "Decision Tree",
+      "metrics": { "accuracy": 0.940, "precision": 0.905, "recall": 0.890, "f1": 0.897, "roc_auc": 0.930 }
+    }
+  ]
+}
