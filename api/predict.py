@@ -92,9 +92,8 @@ async def predict(request: Request) -> Response:
     except Exception as e:
         return JSONResponse({'error': f'Prediction failed: {str(e)}'}, status_code=500)
 
-# For Vercel deployment, we need to handle both the /api/predict route and direct function calls
-routes = [Route('/predict', predict, methods=['POST']), Route('/api/predict', predict, methods=['POST'])]
-app = Starlette(routes=routes)
-
-# Export the handler function for Vercel
-handler = app
+# Vercel handler function
+def handler(request):
+    """Vercel serverless function handler"""
+    import asyncio
+    return asyncio.run(predict(request))

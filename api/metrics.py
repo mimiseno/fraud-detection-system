@@ -108,8 +108,8 @@ async def metrics_endpoint(_) -> Response:
 
     return JSONResponse(out)
 
-routes = [Route('/metrics', metrics_endpoint, methods=['GET'])]
-app = Starlette(routes=routes)
-
-# Export handler for Vercel
-handler = app
+# Vercel handler function
+def handler(request):
+    """Vercel serverless function handler"""
+    import asyncio
+    return asyncio.run(metrics_endpoint(request))
