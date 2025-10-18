@@ -40,8 +40,8 @@ class handler(BaseHTTPRequestHandler):
                 float(request_data.get('type_DEBIT', 0)),
                 float(request_data.get('type_PAYMENT', 0)),
                 float(request_data.get('type_TRANSFER', 0)),
-                float(request_data.get('type_CASH_OUT', 0)),  # isCashOut
-                float(request_data.get('type_TRANSFER', 0))   # isTransfer
+                float(request_data.get('isCashOut', 0)),
+                float(request_data.get('isTransfer', 0))
             ]
             
             # Debug: Log feature vector
