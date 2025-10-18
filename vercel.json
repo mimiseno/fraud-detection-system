@@ -1,22 +1,16 @@
 {
   "version": 2,
-  "functions": {
-    "api/predict.py": {
-      "memory": 1024,
-      "maxDuration": 10,
-      "includeFiles": "api/model_rf_pipeline.joblib"
-    },
-    "api/metrics.py": {
-      "memory": 512,
-      "maxDuration": 5,
-      "includeFiles": "api/metrics_precomputed.json"
-    }
-  },
+  "builds": [
+    { "src": "api/predict.py", "use": "@vercel/python" },
+    { "src": "api/metrics.py", "use": "@vercel/python" },
+    { "src": "**/*.html", "use": "@vercel/static" },
+    { "src": "assets/**", "use": "@vercel/static" },
+    { "src": "metrics.json", "use": "@vercel/static" }
+  ],
   "routes": [
     { "src": "/api/predict", "dest": "api/predict.py" },
     { "src": "/api/metrics", "dest": "api/metrics.py" },
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/metrics_precomputed.json", "dest": "/metrics_precomputed.json" },
     { "src": "/(index|transaction).html", "dest": "/$1.html" },
     { "src": "/", "dest": "/index.html" }
   ]
