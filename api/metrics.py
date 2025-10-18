@@ -1,45 +1,49 @@
-import json
+﻿import json
 import os
 
-
 def handler(request):
-    headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Content-Type': 'application/json'
-    }
-    
-    if request.method == 'OPTIONS':
+    if request.method == "OPTIONS":
         return {
-            'statusCode': 200,
-            'headers': headers,
-            'body': ''
+            "statusCode": 200,
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, OPTIONS", 
+                "Access-Control-Allow-Headers": "Content-Type"
+            },
+            "body": ""
         }
     
     try:
         api_dir = os.path.dirname(__file__)
-        precomp_path = os.path.join(api_dir, 'metrics_precomputed.json')
+        precomp_path = os.path.join(api_dir, "metrics_precomputed.json")
         
         if os.path.exists(precomp_path):
-            with open(precomp_path, 'r', encoding='utf-8') as f:
+            with open(precomp_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
             
             return {
-                'statusCode': 200,
-                'headers': headers,
-                'body': json.dumps(data)
+                "statusCode": 200,
+                "headers": {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json"
+                },
+                "body": json.dumps(data)
             }
         else:
             return {
-                'statusCode': 500,
-                'headers': headers,
-                'body': json.dumps({'error': 'Metrics file not found'})
+                "statusCode": 500,
+                "headers": {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json"
+                },
+                "body": json.dumps({"error": "Metrics file not found"})
             }
-            
     except Exception as e:
         return {
-            'statusCode': 500,
-            'headers': headers,
-            'body': json.dumps({'error': str(e)})
+            "statusCode": 500,
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json"
+            },
+            "body": json.dumps({"error": str(e)})
         }
