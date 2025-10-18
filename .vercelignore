@@ -1,0 +1,10 @@
+*.csv
+online-payments.csv
+test_*.py
+local_server.py
+*.log
+__pycache__/
+.git/
+README.md
+LICENSE
+.gitignore
