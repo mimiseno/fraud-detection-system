@@ -2,10 +2,10 @@
   "version": 2,
   "functions": {
     "api/predict.py": {
-      "runtime": "python3.11"
+      "runtime": "@vercel/python@3.9.16"
     },
     "api/metrics.py": {
-      "runtime": "python3.11"
+      "runtime": "@vercel/python@3.9.16"
     }
   },
   "routes": [
