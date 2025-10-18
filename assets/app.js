@@ -350,7 +350,9 @@ function bindPredictForm() {
       type_CASH_OUT: transactionType === 'cashout' ? 1 : 0,
       type_DEBIT: transactionType === 'debit' ? 1 : 0,
       type_PAYMENT: transactionType === 'payment' ? 1 : 0,
-      type_TRANSFER: transactionType === 'transfer' ? 1 : 0
+      type_TRANSFER: transactionType === 'transfer' ? 1 : 0,
+      isCashOut: transactionType === 'cashout' ? 1 : 0,
+      isTransfer: transactionType === 'transfer' ? 1 : 0
     };
 
     const resultEl = document.getElementById('result');
