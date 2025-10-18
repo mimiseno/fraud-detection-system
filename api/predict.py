@@ -5,6 +5,7 @@ import math
 
 
 class handler(BaseHTTPRequestHandler):
+    # Updated: 2025-10-18 - Fixed column names to match trained model
     def do_POST(self):
         try:
             content_length = int(self.headers['Content-Length'])
