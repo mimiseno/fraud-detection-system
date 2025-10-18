@@ -1,20 +1,13 @@
 {
   "version": 2,
-  "builds": [
-    { 
-      "src": "api/predict.py", 
-      "use": "@vercel/python",
-      "config": { "runtime": "python3.11" }
+  "functions": {
+    "api/predict.py": {
+      "runtime": "python3.11"
     },
-    { 
-      "src": "api/metrics.py", 
-      "use": "@vercel/python",
-      "config": { "runtime": "python3.11" }
-    },
-    { "src": "**/*.html", "use": "@vercel/static" },
-    { "src": "assets/**", "use": "@vercel/static" },
-    { "src": "metrics.json", "use": "@vercel/static" }
-  ],
+    "api/metrics.py": {
+      "runtime": "python3.11"
+    }
+  },
   "routes": [
     { "src": "/api/predict", "dest": "api/predict.py" },
     { "src": "/api/metrics", "dest": "api/metrics.py" },
