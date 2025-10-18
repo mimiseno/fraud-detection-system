@@ -21,20 +21,34 @@ class handler(BaseHTTPRequestHandler):
             import numpy as np
             model = joblib_load(model_path)
             
+            # Model expects: step, amount, oldbalanceOrg, newbalanceOrig, oldbalanceDest,
+            # newbalanceDest, errorBalanceOrig, errorBalanceDest, type_CASH_OUT,
+            # type_DEBIT, type_PAYMENT, type_TRANSFER (12 features)
+            
+            # Calculate derived features
+            amount = float(request_data.get('amount', 0))
+            oldbalanceOrg = float(request_data.get('oldbalanceOrig', 0))
+            newbalanceOrig = float(request_data.get('newbalanceOrig', 0))
+            oldbalanceDest = float(request_data.get('oldbalanceDest', 0))
+            newbalanceDest = float(request_data.get('newbalanceDest', 0))
+            
+            errorBalanceOrig = newbalanceOrig + amount - oldbalanceOrg
+            errorBalanceDest = oldbalanceDest + amount - newbalanceDest
+            
             # Create array with features in exact training order
             row = np.array([[
-                float(request_data.get('amount', 0)),
-                float(request_data.get('oldbalanceOrig', 0)),
-                float(request_data.get('newbalanceOrig', 0)),
-                float(request_data.get('oldbalanceDest', 0)),
-                float(request_data.get('newbalanceDest', 0)),
-                float(request_data.get('type_CASH_IN', 0)),
+                float(request_data.get('step', 1)),
+                amount,
+                oldbalanceOrg,
+                newbalanceOrig,
+                oldbalanceDest,
+                newbalanceDest,
+                errorBalanceOrig,
+                errorBalanceDest,
                 float(request_data.get('type_CASH_OUT', 0)),
                 float(request_data.get('type_DEBIT', 0)),
                 float(request_data.get('type_PAYMENT', 0)),
-                float(request_data.get('type_TRANSFER', 0)),
-                float(request_data.get('isCashOut', 0)),
-                float(request_data.get('isTransfer', 0))
+                float(request_data.get('type_TRANSFER', 0))
             ]])
             
             row_array = row
