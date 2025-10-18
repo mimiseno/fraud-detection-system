@@ -324,13 +324,13 @@ function bindPredictForm() {
     
     // Get form values and convert to numbers
     const amount = parseFloat(formData.amount) || 0;
-    const oldbalanceOrg = parseFloat(formData.oldbalanceOrg) || 0;
+    const oldbalanceOrig = parseFloat(formData.oldbalanceOrig) || 0;
     const newbalanceOrig = parseFloat(formData.newbalanceOrig) || 0;
     const oldbalanceDest = parseFloat(formData.oldbalanceDest) || 0;
     const newbalanceDest = parseFloat(formData.newbalanceDest) || 0;
     
     // Calculate derived features
-    const errorBalanceOrig = newbalanceOrig + amount - oldbalanceOrg;
+    const errorBalanceOrig = newbalanceOrig + amount - oldbalanceOrig;
     const errorBalanceDest = oldbalanceDest + amount - newbalanceDest;
     
     // Get transaction type from dropdown
@@ -340,7 +340,7 @@ function bindPredictForm() {
     const payload = {
       step: 1,
       amount: amount,
-      oldbalanceOrg: oldbalanceOrg,
+      oldbalanceOrig: oldbalanceOrig,
       newbalanceOrig: newbalanceOrig,
       oldbalanceDest: oldbalanceDest,
       newbalanceDest: newbalanceDest,

@@ -21,14 +21,14 @@ class handler(BaseHTTPRequestHandler):
             model = joblib_load(model_path)
             
             # Model expects 12 features in this order:
-            # amount, oldbalanceOrg, newbalanceOrg, oldbalanceDest, newbalanceDest,
+            # amount, oldbalanceOrig, newbalanceOrig, oldbalanceDest, newbalanceDest,
             # type_CASH_IN, type_CASH_OUT, type_DEBIT, type_PAYMENT, type_TRANSFER
             # isCashOut, isTransfer
             
             row = [
                 float(request_data.get('amount', 0)),
-                float(request_data.get('oldbalanceOrg', 0)),
-                float(request_data.get('newbalanceOrg', 0)),
+                float(request_data.get('oldbalanceOrig', 0)),
+                float(request_data.get('newbalanceOrig', 0)),
                 float(request_data.get('oldbalanceDest', 0)),
                 float(request_data.get('newbalanceDest', 0)),
                 float(request_data.get('type_CASH_IN', 0)),
