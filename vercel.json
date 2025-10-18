@@ -1,13 +1,4 @@
 {
-  "version": 2,
-  "functions": {
-    "api/predict.py": {
-      "runtime": "@vercel/python@3.9.16"
-    },
-    "api/metrics.py": {
-      "runtime": "@vercel/python@3.9.16"
-    }
-  },
   "routes": [
     { "src": "/api/predict", "dest": "api/predict.py" },
     { "src": "/api/metrics", "dest": "api/metrics.py" },
