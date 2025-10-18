@@ -1,8 +1,26 @@
 {
   "version": 2,
+  "functions": {
+    "api/**/*.py": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
   "builds": [
-    { "src": "api/predict.py", "use": "@vercel/python" },
-    { "src": "api/metrics.py", "use": "@vercel/python" },
+    { 
+      "src": "api/predict.py", 
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    },
+    { 
+      "src": "api/metrics.py", 
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    },
     { "src": "**/*.html", "use": "@vercel/static" },
     { "src": "assets/**", "use": "@vercel/static" },
     { "src": "**/*.json", "use": "@vercel/static" },
