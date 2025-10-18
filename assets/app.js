@@ -322,30 +322,16 @@ function bindPredictForm() {
     const fd = new FormData(form);
     const formData = Object.fromEntries([...fd.entries()]);
     
-    // Get form values and convert to numbers
-    const amount = parseFloat(formData.amount) || 0;
-    const oldbalanceOrig = parseFloat(formData.oldbalanceOrig) || 0;
-    const newbalanceOrig = parseFloat(formData.newbalanceOrig) || 0;
-    const oldbalanceDest = parseFloat(formData.oldbalanceDest) || 0;
-    const newbalanceDest = parseFloat(formData.newbalanceDest) || 0;
-    
-    // Calculate derived features
-    const errorBalanceOrig = newbalanceOrig + amount - oldbalanceOrig;
-    const errorBalanceDest = oldbalanceDest + amount - newbalanceDest;
-    
     // Get transaction type from dropdown
     const transactionType = document.getElementById('transactionType').value;
     
-    // Create payload with all required features for the model
+    // Create payload with only the 12 features the model needs
     const payload = {
-      step: 1,
-      amount: amount,
-      oldbalanceOrig: oldbalanceOrig,
-      newbalanceOrig: newbalanceOrig,
-      oldbalanceDest: oldbalanceDest,
-      newbalanceDest: newbalanceDest,
-      errorBalanceOrig: errorBalanceOrig,
-      errorBalanceDest: errorBalanceDest,
+      amount: parseFloat(formData.amount) || 0,
+      oldbalanceOrig: parseFloat(formData.oldbalanceOrig) || 0,
+      newbalanceOrig: parseFloat(formData.newbalanceOrig) || 0,
+      oldbalanceDest: parseFloat(formData.oldbalanceDest) || 0,
+      newbalanceDest: parseFloat(formData.newbalanceDest) || 0,
       type_CASH_IN: transactionType === 'cashin' ? 1 : 0,
       type_CASH_OUT: transactionType === 'cashout' ? 1 : 0,
       type_DEBIT: transactionType === 'debit' ? 1 : 0,

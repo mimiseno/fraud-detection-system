@@ -5,15 +5,11 @@ import math
 
 
 class handler(BaseHTTPRequestHandler):
-    # Updated: 2025-10-18 - Fixed column names to match trained model
     def do_POST(self):
         try:
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
             request_data = json.loads(post_data.decode('utf-8'))
-            
-            # Debug: Log received data
-            print(f"Received data: {json.dumps(request_data, indent=2)}")
             
             api_dir = os.path.dirname(__file__)
             model_path = os.path.join(api_dir, 'model_rf_pipeline.joblib')
@@ -24,11 +20,7 @@ class handler(BaseHTTPRequestHandler):
             from joblib import load as joblib_load
             model = joblib_load(model_path)
             
-            # Model expects 12 features in this order:
-            # amount, oldbalanceOrig, newbalanceOrig, oldbalanceDest, newbalanceDest,
-            # type_CASH_IN, type_CASH_OUT, type_DEBIT, type_PAYMENT, type_TRANSFER
-            # isCashOut, isTransfer
-            
+            # Extract 12 features the model expects
             row = [
                 float(request_data.get('amount', 0)),
                 float(request_data.get('oldbalanceOrig', 0)),
@@ -44,9 +36,6 @@ class handler(BaseHTTPRequestHandler):
                 float(request_data.get('isTransfer', 0))
             ]
             
-            # Debug: Log feature vector
-            print(f"Feature vector: {row}")
-            
             row_array = [row]
             
             if hasattr(model, 'predict_proba'):
@@ -56,9 +45,6 @@ class handler(BaseHTTPRequestHandler):
                 proba = 1 / (1 + math.exp(-raw))
             
             label = 'Fraud' if proba >= 0.5 else 'Legit'
-            
-            # Debug: Log prediction
-            print(f"Prediction: {label}, Probability: {proba}")
             
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
