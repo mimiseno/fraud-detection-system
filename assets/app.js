@@ -346,6 +346,7 @@ function bindPredictForm() {
       newbalanceDest: newbalanceDest,
       errorBalanceOrig: errorBalanceOrig,
       errorBalanceDest: errorBalanceDest,
+      type_CASH_IN: transactionType === 'cashin' ? 1 : 0,
       type_CASH_OUT: transactionType === 'cashout' ? 1 : 0,
       type_DEBIT: transactionType === 'debit' ? 1 : 0,
       type_PAYMENT: transactionType === 'payment' ? 1 : 0,

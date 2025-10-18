@@ -73,9 +73,11 @@
                 <label class="block text-sm font-semibold text-slate-700 mb-2">Transaction Type</label>
                 <select id="transactionType" class="w-full rounded-xl border border-yellow-200/50 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all" required>
                   <option value="">Select transaction type</option>
+                  <option value="cashin">CASH_IN</option>
+                  <option value="cashout">CASH_OUT</option>
+                  <option value="debit">DEBIT</option>
                   <option value="payment">PAYMENT</option>
                   <option value="transfer">TRANSFER</option>
-                  <option value="cashout">CASH_OUT</option>
                 </select>
                 <input name="isCashOut" type="hidden" value="0" />
                 <input name="isTransfer" type="hidden" value="0" />

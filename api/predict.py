@@ -20,20 +20,25 @@ class handler(BaseHTTPRequestHandler):
             from joblib import load as joblib_load
             model = joblib_load(model_path)
             
-            features = [
-                'amount', 'oldbalanceOrg', 'newbalanceOrg', 'oldbalanceDest', 
-                'newbalanceDest', 'isCashOut', 'isTransfer'
-            ]
+            # Model expects 12 features in this order:
+            # amount, oldbalanceOrg, newbalanceOrg, oldbalanceDest, newbalanceDest,
+            # type_CASH_IN, type_CASH_OUT, type_DEBIT, type_PAYMENT, type_TRANSFER
+            # isCashOut, isTransfer
             
-            row = []
-            for feature in features:
-                if feature in ['isCashOut', 'isTransfer']:
-                    if feature == 'isCashOut':
-                        row.append(float(request_data.get('type_CASH_OUT', 0)))
-                    else:
-                        row.append(float(request_data.get('type_TRANSFER', 0)))
-                else:
-                    row.append(float(request_data.get(feature, 0)))
+            row = [
+                float(request_data.get('amount', 0)),
+                float(request_data.get('oldbalanceOrg', 0)),
+                float(request_data.get('newbalanceOrg', 0)),
+                float(request_data.get('oldbalanceDest', 0)),
+                float(request_data.get('newbalanceDest', 0)),
+                float(request_data.get('type_CASH_IN', 0)),
+                float(request_data.get('type_CASH_OUT', 0)),
+                float(request_data.get('type_DEBIT', 0)),
+                float(request_data.get('type_PAYMENT', 0)),
+                float(request_data.get('type_TRANSFER', 0)),
+                float(request_data.get('type_CASH_OUT', 0)),  # isCashOut
+                float(request_data.get('type_TRANSFER', 0))   # isTransfer
+            ]
             
             row_array = [row]
             
