@@ -18,25 +18,26 @@ class handler(BaseHTTPRequestHandler):
                 raise FileNotFoundError('Model file not found')
             
             from joblib import load as joblib_load
+            import pandas as pd
             model = joblib_load(model_path)
             
-            # Extract 12 features the model expects
-            row = [
-                float(request_data.get('amount', 0)),
-                float(request_data.get('oldbalanceOrig', 0)),
-                float(request_data.get('newbalanceOrig', 0)),
-                float(request_data.get('oldbalanceDest', 0)),
-                float(request_data.get('newbalanceDest', 0)),
-                float(request_data.get('type_CASH_IN', 0)),
-                float(request_data.get('type_CASH_OUT', 0)),
-                float(request_data.get('type_DEBIT', 0)),
-                float(request_data.get('type_PAYMENT', 0)),
-                float(request_data.get('type_TRANSFER', 0)),
-                float(request_data.get('isCashOut', 0)),
-                float(request_data.get('isTransfer', 0))
-            ]
+            # Create DataFrame with feature names to match training
+            feature_data = {
+                'amount': float(request_data.get('amount', 0)),
+                'oldbalanceOrig': float(request_data.get('oldbalanceOrig', 0)),
+                'newbalanceOrig': float(request_data.get('newbalanceOrig', 0)),
+                'oldbalanceDest': float(request_data.get('oldbalanceDest', 0)),
+                'newbalanceDest': float(request_data.get('newbalanceDest', 0)),
+                'type_CASH_IN': float(request_data.get('type_CASH_IN', 0)),
+                'type_CASH_OUT': float(request_data.get('type_CASH_OUT', 0)),
+                'type_DEBIT': float(request_data.get('type_DEBIT', 0)),
+                'type_PAYMENT': float(request_data.get('type_PAYMENT', 0)),
+                'type_TRANSFER': float(request_data.get('type_TRANSFER', 0)),
+                'isCashOut': float(request_data.get('isCashOut', 0)),
+                'isTransfer': float(request_data.get('isTransfer', 0))
+            }
             
-            row_array = [row]
+            row_array = pd.DataFrame([feature_data])
             
             if hasattr(model, 'predict_proba'):
                 proba = float(model.predict_proba(row_array)[0][1])
