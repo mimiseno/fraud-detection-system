@@ -12,6 +12,9 @@ class handler(BaseHTTPRequestHandler):
             post_data = self.rfile.read(content_length)
             request_data = json.loads(post_data.decode('utf-8'))
             
+            # Debug: Log received data
+            print(f"Received data: {json.dumps(request_data, indent=2)}")
+            
             api_dir = os.path.dirname(__file__)
             model_path = os.path.join(api_dir, 'model_rf_pipeline.joblib')
             
@@ -41,6 +44,9 @@ class handler(BaseHTTPRequestHandler):
                 float(request_data.get('type_TRANSFER', 0))   # isTransfer
             ]
             
+            # Debug: Log feature vector
+            print(f"Feature vector: {row}")
+            
             row_array = [row]
             
             if hasattr(model, 'predict_proba'):
@@ -50,6 +56,9 @@ class handler(BaseHTTPRequestHandler):
                 proba = 1 / (1 + math.exp(-raw))
             
             label = 'Fraud' if proba >= 0.5 else 'Legit'
+            
+            # Debug: Log prediction
+            print(f"Prediction: {label}, Probability: {proba}")
             
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
